@@ -28,12 +28,15 @@
 package nz.h4t.border;
 
 import nz.h4t.border.exceptions.BorderException;
+import nz.h4t.border.exceptions.BorderIsNullException;
+import nz.h4t.border.exceptions.BorderNotNullException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BorderTest {
     @Test
@@ -41,8 +44,9 @@ public class BorderTest {
         Border.checkIsNull("Test", null);
         try {
             Border.checkIsNull("Test", "Not Null");
-        } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            fail();
+        } catch (BorderNotNullException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -50,9 +54,10 @@ public class BorderTest {
     public void checkNotNull() {
         Border.checkNotNull("Test", "Not Null");
         try {
-            Border.checkIsNull("Test", null);
-        } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            Border.checkNotNull("Test", null);
+            fail();
+        } catch (BorderIsNullException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -61,8 +66,9 @@ public class BorderTest {
         Border.checkEqual("Test", "ABC", "ABC");
         try {
             Border.checkEqual("Test", "ABC", "DEF");
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -71,8 +77,9 @@ public class BorderTest {
         Border.checkNotEmpty("Test", "ABC");
         try {
             Border.checkNotEmpty("Test", null);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -81,13 +88,15 @@ public class BorderTest {
         Border.checkNotNullOrEmpty("Test", "ABC");
         try {
             Border.checkNotNullOrEmpty("Test", null);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
         try {
             Border.checkNotNullOrEmpty("Test", "");
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -96,8 +105,9 @@ public class BorderTest {
         Border.checkIsTrue("Test", true);
         try {
             Border.checkIsTrue("Test", false);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -106,8 +116,9 @@ public class BorderTest {
         Border.checkIsFalse("Test", false);
         try {
             Border.checkIsFalse("Test", true);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -117,8 +128,9 @@ public class BorderTest {
         Border.checkTooLong("Test", "HHH", 4);
         try {
             Border.checkTooLong("Test", "HHH", 2);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -128,8 +140,9 @@ public class BorderTest {
         Border.checkTooShort("Test", "HHH", 2);
         try {
             Border.checkTooShort("Test", "H", 2);
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -138,8 +151,9 @@ public class BorderTest {
         Border.checkPattern("Test", "ABC", "^ABC$");
         try {
             Border.checkPattern("Test", "H", "^ABC$");
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -158,8 +172,9 @@ public class BorderTest {
                     LocalDate.of(2018, 6, 15),
                     LocalDate.of(2018, 6, 10),
                     LocalDate.of(2018, 6, 12));
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -178,8 +193,9 @@ public class BorderTest {
                     LocalDateTime.of(2018, 6, 15, 0, 0),
                     LocalDateTime.of(2018, 6, 10, 0, 0),
                     LocalDateTime.of(2018, 6, 12, 0, 0));
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 
@@ -188,8 +204,9 @@ public class BorderTest {
         Border.checkPossibleValues("Test", "ABC", "ABC", "DEF");
         try {
             Border.checkPossibleValues("Test", "XYZ", "ABC", "DEF");
+            fail();
         } catch (BorderException ex) {
-            assertTrue(ex.getCode().matches("^PortcullisTest[:][0-9]+$"));
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }
 }

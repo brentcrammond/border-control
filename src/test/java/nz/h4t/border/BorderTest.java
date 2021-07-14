@@ -218,9 +218,9 @@ public class BorderTest {
         Set<String> vals = new HashSet<>();
         vals.add("ABC");
         vals.add("DEF");
-        Border.checkPossibleValues("Test", "ABC", vals);
+        Border.checkInCollection("Test", "ABC", vals);
         try {
-            Border.checkPossibleValues("Test", "XYZ", vals);
+            Border.checkInCollection("Test", "XYZ", vals);
             fail();
         } catch (BorderException ex) {
             assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));

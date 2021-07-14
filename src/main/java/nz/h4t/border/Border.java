@@ -32,6 +32,7 @@ import nz.h4t.border.exceptions.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 /**
@@ -242,6 +243,28 @@ public class Border {
             throw new BorderNoMatchException(findReference(), mesg);
         }
         boolean found = Arrays.stream(possibleVals)
+                .anyMatch(obj::equals);
+        if (!found) {
+            throw new BorderNoMatchException(findReference(), mesg);
+        }
+    }
+
+    /**
+     * Checks whether the sample value is one of the possible values.
+     *
+     * @param mesg         Error Message
+     * @param obj          Sample be tested
+     * @param possibleVals Possible values that the sample could be
+     */
+    public static void checkPossibleValues(String mesg, Object obj, Collection<Object> possibleVals) {
+        if (obj == null) {
+            throw new BorderIsNullException(findReference(), mesg);
+        }
+        if (possibleVals.size() == 0) {
+            throw new BorderNoMatchException(findReference(), mesg);
+        }
+        boolean found = possibleVals
+                .stream()
                 .anyMatch(obj::equals);
         if (!found) {
             throw new BorderNoMatchException(findReference(), mesg);

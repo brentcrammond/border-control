@@ -35,6 +35,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -205,6 +207,20 @@ public class BorderTest {
         Border.checkPossibleValues("Test", "ABC", "ABC", "DEF");
         try {
             Border.checkPossibleValues("Test", "XYZ", "ABC", "DEF");
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
+    public void checkPossibleValuesCollection() {
+        Set<String> vals = new HashSet<>();
+        vals.add("ABC");
+        vals.add("DEF");
+        Border.checkPossibleValues("Test", "ABC", vals);
+        try {
+            Border.checkPossibleValues("Test", "XYZ", vals);
             fail();
         } catch (BorderException ex) {
             assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));

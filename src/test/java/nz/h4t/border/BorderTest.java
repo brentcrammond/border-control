@@ -214,7 +214,7 @@ public class BorderTest {
     }
 
     @Test
-    public void checkPossibleValuesCollection() {
+    public void checkInCollection() {
         Set<String> vals = new HashSet<>();
         vals.add("ABC");
         vals.add("DEF");

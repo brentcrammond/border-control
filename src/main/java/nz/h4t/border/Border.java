@@ -256,7 +256,7 @@ public class Border {
      * @param obj          Sample be tested
      * @param possibleVals Possible values that the sample could be
      */
-    public static void checkPossibleValues(String mesg, Object obj, Collection<Object> possibleVals) {
+    public static void checkInCollection(String mesg, Object obj, Collection<Object> possibleVals) {
         if (obj == null) {
             throw new BorderIsNullException(findReference(), mesg);
         }

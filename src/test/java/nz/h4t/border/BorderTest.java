@@ -28,6 +28,7 @@
 package nz.h4t.border;
 
 import nz.h4t.border.exceptions.BorderException;
+import nz.h4t.border.exceptions.BorderInvalidEmailException;
 import nz.h4t.border.exceptions.BorderIsNullException;
 import nz.h4t.border.exceptions.BorderNotNullException;
 import org.junit.jupiter.api.Test;
@@ -206,6 +207,32 @@ public class BorderTest {
             Border.checkPossibleValues("Test", "XYZ", "ABC", "DEF");
             fail();
         } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
+    public void checkValidEmail() {
+        Border.checkValidEmail("Test", "joebloggs@abc.com");
+        Border.checkValidEmail("Test", "joe_bloggs@abc.co.nz");
+        Border.checkValidEmail("Test", "joe-bloggs@abc.co.nz");
+        Border.checkValidEmail("Test", "joe.bloggs@abc.co.nz");
+        try {
+            Border.checkValidEmail("Test", null);
+            fail();
+        } catch (BorderIsNullException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+        try {
+            Border.checkValidEmail("Test", "InvalidEmailAddress");
+            fail();
+        } catch (BorderInvalidEmailException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+        try {
+            Border.checkValidEmail("Test", "Invalid Email Address@abc.com");
+            fail();
+        } catch (BorderInvalidEmailException ex) {
             assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }

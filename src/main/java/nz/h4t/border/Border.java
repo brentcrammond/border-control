@@ -39,6 +39,8 @@ import java.util.regex.Pattern;
  * Runtime Exceptions if certain conditions are not met.
  */
 public class Border {
+    private static final Pattern VALID_EMAIL_ADDRESS = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
     /**
      * checkIsNull checks that the object provided is not null
      *
@@ -243,6 +245,21 @@ public class Border {
                 .anyMatch(obj::equals);
         if (!found) {
             throw new BorderNoMatchException(findReference(), mesg);
+        }
+    }
+
+    /**
+     * Checks that the test object is not null
+     *
+     * @param mesg         Error Message
+     * @param emailAddress test email address
+     */
+    public static void checkValidEmail(String mesg, String emailAddress) {
+        if (emailAddress == null) {
+            throw new BorderIsNullException(findReference(), mesg);
+        }
+        if (!VALID_EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+            throw new BorderInvalidEmailException(findReference(), mesg);
         }
     }
 

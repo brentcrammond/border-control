@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  * Runtime Exceptions if certain conditions are not met.
  */
 public class Border {
-    private static final Pattern VALID_EMAIL_ADDRESS = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern VALID_EMAIL_ADDRESS = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,20}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * checkIsNull checks that the object provided is not null

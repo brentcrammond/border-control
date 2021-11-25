@@ -40,7 +40,13 @@ import java.util.regex.Pattern;
  * Runtime Exceptions if certain conditions are not met.
  */
 public class Border {
-    private static final Pattern VALID_EMAIL_ADDRESS = Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern VALID_EMAIL_ADDRESS = Pattern.compile("^[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9](?:[a-zA-Z0-9-]{0,61}[A-Z0-9])?(?:\\.[A-Z0-9](?:[A-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
+
+    private static Pattern emailRegex = VALID_EMAIL_ADDRESS;
+
+    public static void setEmailRegex(String emailRegexStr) {
+        emailRegex = Pattern.compile(emailRegexStr);
+    }
 
     /**
      * checkIsNull checks that the object provided is not null
@@ -281,7 +287,7 @@ public class Border {
         if (emailAddress == null) {
             throw new BorderIsNullException(findReference(), mesg);
         }
-        if (!VALID_EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+        if (!emailRegex.matcher(emailAddress).matches()) {
             throw new BorderInvalidEmailException(findReference(), mesg);
         }
     }

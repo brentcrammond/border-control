@@ -233,6 +233,8 @@ public class BorderTest {
         Border.checkValidEmail("Test", "joe_bloggs@abc.co.nz");
         Border.checkValidEmail("Test", "joe-bloggs@abc.co.nz");
         Border.checkValidEmail("Test", "joe.bloggs@abc.co.nz");
+        Border.checkValidEmail("Test", "joe.bloggs@abc.solutions");
+        Border.checkValidEmail("Test", "^joe.bloggs@abc.nz");
         try {
             Border.checkValidEmail("Test", null);
             fail();

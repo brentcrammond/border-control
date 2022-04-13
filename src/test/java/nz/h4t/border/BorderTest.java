@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,6 +81,23 @@ public class BorderTest {
         Border.checkNotEmpty("Test", "ABC");
         try {
             Border.checkNotEmpty("Test", null);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
+    public void checkCollectionNotEmpty() {
+        Border.checkCollectionNotEmpty("Test", Arrays.asList("foo"));
+        try {
+            Border.checkCollectionNotEmpty("Test", null);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+        try {
+            Border.checkCollectionNotEmpty("Test", Arrays.asList());
             fail();
         } catch (BorderException ex) {
             assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
@@ -228,6 +246,41 @@ public class BorderTest {
     }
 
     @Test
+    public void checkSize() {
+        Border.checkSize("Test", Arrays.asList("XXX"), 1);
+        try {
+            Border.checkSize("Test", null, 1);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+        try {
+            Border.checkSize("Test", Arrays.asList("XXX"), 2);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
+    public void checkMinSize() {
+        Border.checkMinSize("Test", Arrays.asList("XXX"), 1);
+        Border.checkMinSize("Test", Arrays.asList("XXX", "ZZZ"), 1);
+        try {
+            Border.checkMinSize("Test", null, 1);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+        try {
+            Border.checkMinSize("Test", Arrays.asList("XXX"), 2);
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
     public void checkValidEmail() {
         Border.checkValidEmail("Test", "joebloggs@abc.com");
         Border.checkValidEmail("Test", "joe_bloggs@abc.co.nz");
@@ -251,6 +304,16 @@ public class BorderTest {
             Border.checkValidEmail("Test", "Invalid Email Address@abc.com");
             fail();
         } catch (BorderInvalidEmailException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
+    public void checkFail() {
+        try {
+            Border.fail("Test");
+            fail();
+        } catch (BorderException ex) {
             assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
         }
     }

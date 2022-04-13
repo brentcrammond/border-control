@@ -107,6 +107,21 @@ public class Border {
     }
 
     /**
+     * Checks that str is not empty
+     *
+     * @param mesg Error Message
+     * @param coll Collection being tested
+     */
+    public static void checkCollectionNotEmpty(String mesg, Collection coll) {
+        if (coll == null) {
+            throw new BorderIsEmptyException(findReference(), mesg);
+        }
+        if (coll.isEmpty()) {
+            throw new BorderIsEmptyException(findReference(), mesg);
+        }
+    }
+
+    /**
      * Checks not null or empty
      *
      * @param mesg Error Message
@@ -256,6 +271,38 @@ public class Border {
     }
 
     /**
+     * Checks whether the size of a collection.
+     *
+     * @param mesg Error Message
+     * @param coll Sample be tested
+     * @param size Size of a collection
+     */
+    public static void checkSize(String mesg, Collection coll, int size) {
+        if (coll == null) {
+            throw new BorderIsNullException(findReference(), mesg);
+        }
+        if (coll.size() != size) {
+            throw new BorderNoMatchException(findReference(), mesg);
+        }
+    }
+
+    /**
+     * Checks whether the size of a collection.
+     *
+     * @param mesg Error Message
+     * @param coll Sample be tested
+     * @param size Size of a collection
+     */
+    public static void checkMinSize(String mesg, Collection coll, int size) {
+        if (coll == null) {
+            throw new BorderIsNullException(findReference(), mesg);
+        }
+        if (coll.size() >= size) {
+            throw new BorderNoMatchException(findReference(), mesg);
+        }
+    }
+
+    /**
      * Checks whether the sample value is one of the possible values.
      *
      * @param mesg         Error Message
@@ -290,6 +337,10 @@ public class Border {
         if (!emailRegex.matcher(emailAddress).matches()) {
             throw new BorderInvalidEmailException(findReference(), mesg);
         }
+    }
+
+    public static void fail(String mesg) {
+        throw new BorderException(findReference(), mesg);
     }
 
     //

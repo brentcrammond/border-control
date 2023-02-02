@@ -297,7 +297,7 @@ public class Border {
         if (coll == null) {
             throw new BorderIsNullException(findReference(), mesg);
         }
-        if (coll.size() >= size) {
+        if (coll.size() < size) {
             throw new BorderNoMatchException(findReference(), mesg);
         }
     }

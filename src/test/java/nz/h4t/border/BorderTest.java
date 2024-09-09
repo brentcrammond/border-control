@@ -77,6 +77,17 @@ public class BorderTest {
     }
 
     @Test
+    public void checkNotEqual() {
+        Border.checkNotEqual("Test", "ABC", "DEF");
+        try {
+            Border.checkNotEqual("Test", "ABC", "ABC");
+            fail();
+        } catch (BorderException ex) {
+            assertTrue(ex.getCode().matches("^BorderTest[:][0-9]+$"));
+        }
+    }
+
+    @Test
     public void checkNotEmpty() {
         Border.checkNotEmpty("Test", "ABC");
         try {

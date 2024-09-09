@@ -92,6 +92,25 @@ public class Border {
     }
 
     /**
+     * Checks that obj1 and obj2 are not equal
+     *
+     * @param mesg Error Message
+     * @param obj1 test object1
+     * @param obj2 test object2
+     */
+    public static void checkNotEqual(String mesg, Object obj1, Object obj2) {
+        if (obj1 == null && obj2 == null) {
+            throw new BorderEqualException(findReference(), mesg);
+        }
+        if ((obj1 == null && obj2 != null) || (obj1 != null && obj2 == null)) {
+            return;
+        }
+        if (obj1.equals(obj2)) {
+            throw new BorderEqualException(findReference(), mesg);
+        }
+    }
+
+    /**
      * Checks that str is not empty
      *
      * @param mesg Error Message

@@ -4,7 +4,7 @@ Maven Dependency:
 <dependency>
     <groupId>com.github.brentcrammond</groupId>
     <artifactId>border-control</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
 </dependency>
 ```
 

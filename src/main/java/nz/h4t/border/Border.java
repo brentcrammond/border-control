@@ -49,6 +49,15 @@ public class Border {
     }
 
     /**
+     * Throws a BorderNotNullException with a specified error message and reference.
+     *
+     * @param mesg the error message to be included in the exception
+     */
+    public static void checkAlways(String mesg) {
+        throw new BorderNotNullException(findReference(), mesg);
+    }
+
+    /**
      * checkIsNull checks that the object provided is not null
      *
      * @param mesg Error Message
